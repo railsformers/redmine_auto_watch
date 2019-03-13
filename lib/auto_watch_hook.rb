@@ -32,8 +32,8 @@ class AutoWatchHook < Redmine::Hook::Listener
   end
 
   def add_assigned_was(issue)
-    if issue.assigned_to_was
-      add_watcher_to_issue(issue, issue.assigned_to_was);
+    if issue.assigned_to_id_was
+      add_watcher_to_issue(issue, issue.assigned_to_id_was);
     end
   end
 
