@@ -28,7 +28,7 @@ class AutoWatchHook < Redmine::Hook::Listener
   end
 
   def add_assignee(issue)
-    add_watcher_to_issue(issue, issue.assigned_to_id)
+    add_watcher_to_issue(issue, issue.assigned_to)
   end
 
   def add_assigned_was(issue)
@@ -38,7 +38,7 @@ class AutoWatchHook < Redmine::Hook::Listener
   end
 
   def add_watcher_to_issue(issue, assignee)
-    return if assignee.nil? || !assignee.is_a?(User) || assignee.anonymous? || !assignee.active? || assignee == issue.author
+    return if assignee.nil? || !assignee.is_a?(User) || assignee.anonymous? || !assignee.active?
 
     issue.add_watcher(assignee) unless issue.watched_by?(assignee)
   end
