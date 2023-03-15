@@ -1,6 +1,6 @@
 # Hooks to attach to the Redmine Issues.
 class AutoWatchHook < Redmine::Hook::Listener
-  def controller_issues_edit_before_save(context = {})
+  def controller_issues_edit_after_save(context = {})
     issue = context[:issue]
 
     add_current_user(issue)
@@ -8,7 +8,7 @@ class AutoWatchHook < Redmine::Hook::Listener
     add_assigned_was(issue)
   end
 
-  def controller_issues_new_before_save(context = {})
+  def controller_issues_new_after_save(context = {})
     add_current_user(context[:issue])
     add_assignee(context[:issue])
   end
@@ -23,6 +23,7 @@ class AutoWatchHook < Redmine::Hook::Listener
   end
 
   private
+
   def add_current_user(issue)
     add_watcher_to_issue(issue, User.current)
   end
